@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "hello-metric"
+  namespace: my-app-dev
+  labels:
+    app: "hello-metric"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: "hello-metric"
+      labels:
+        app: "hello-metric"
+    spec:
+      containers:
+        - name: "hello-metric"
+          image: "hello-metric:6.0"
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 11000
+              name: hello-port
+              protocol: TCP
+
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: "hello-metric"

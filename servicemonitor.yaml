@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: monitoring-hello
+  namespace: monitoring
+  labels:
+    app: hello-metric
+    release: prometheus # imp had forgot this, if you do describe prometheus resource there is a servicemonitor selector for this label
+spec:
+  selector:
+    matchLabels:
+      # Target app service
+      app: hello-metric
+  endpoints:
+    - interval: 15s
+      path: '/actuator/metrics'
+      port: hello-svc-port
+      scheme: http
+  namespaceSelector:
+    matchNames:
+      - my-app-dev

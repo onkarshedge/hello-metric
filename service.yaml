@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-metric
+  labels:
+    app: hello-metric
+  namespace: my-app-dev
+spec:
+  selector:
+    app: hello-metric
+  ports:
+    - port: 11000
+      targetPort: hello-port
+      name: hello-svc-port
+  type: ClusterIP
